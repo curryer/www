@@ -1,0 +1,21 @@
+language: python
+env:
+  matrix:
+  - HUGO_VERSION=0.49
+  global:
+    secure: jekPYB9byu8p7Yy+78lheBZTAsuy6WBnkAv0fzrPD0Ffqjed26jBlh9TIHnFvFJQjTWnjrzA6oIWuVQ7DPkFWZYU3NGbxB85uopKJo2hpBLeojrJ5CEDvOeXhImjb9xKhqz1zlmQJlWAZYbQLt75BuNoboBDtexAAFAlTRTnR7PrRplmTze3s1jJCjgHbGeM5K4Sfpl94xsxGwA6IyCJbzPX6QPED918AsLu30zEp7hMlu1OTQS4ke7dmkmzYTVP1OC7MsBMF3/4QcR3YDmd3JMLFbJdbx2rP84Zryz1PHsZPfuLMyUUa2kX8hQZTg/oqYqA0xGppmGNQ9eveFYF+UYwXXhXcJue4QSNZ/mZfCZWVh6wvJuyPU7xfh0sfevqG1IgTBpgePXxDfhtwpJloi0XwpWQUJC6eAwBbYXzTPsz33YUs27BBRh0ywKsWZvjYdkfMtco+WmhTrKb2/9BD51OzYjhvpgLY3t9kY4Gu+wl6u6Q9HjaNSX4uYMdMnuEjt8JVEH69Rq8HF65SfrNkUYiOyqKuiAI7giCXYsZhM7CrTtg8Gb+ufqFGv7lHP+cvuc76lEJz5Q9IwMMyFmYUCoPzxVu3tSyJVg3bSc8TT6WPox2xMEx7GUJ1Yujr1SpfhpxyycfuuppWb41bfBCZDUlDsdVfezAr3BROsX39Ps=
+install:
+- wget $(echo 'https://github.com/gohugoio/hugo/releases/download/vHUGO_VERSION/hugo_HUGO_VERSION_Linux-64bit.deb'
+  | sed "s/HUGO_VERSION/$HUGO_VERSION/g")
+- sudo dpkg -i hugo*.deb
+- pip install Pygments
+script:
+- hugo
+deploy:
+  provider: pages
+  local-dir: public
+  skip-cleanup: true
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
